@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "*/30 * * * *"
-
+    
 permissions:
   contents: read
   pages: write
@@ -23,27 +23,26 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 9
-          package_json_file: YukiOS/webos-desktop/package.json  # ← updated
+          package_json_file: YukiOS/webos-desktop/package.json
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
-          cache-dependency-path: YukiOS/webos-desktop/pnpm-lock.yaml  # ← updated
+          cache-dependency-path: YukiOS/webos-desktop/pnpm-lock.yaml
 
       - name: Install dependencies
-        working-directory: YukiOS/webos-desktop  # ← updated
+        working-directory: YukiOS/webos-desktop
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        working-directory: YukiOS/webos-desktop  # ← updated
+        working-directory: YukiOS/webos-desktop
         run: pnpm build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: YukiOS/webos-desktop/dist  # ← updated
+          path: YukiOS/webos-desktop/dist
 
   deploy:
     environment:
